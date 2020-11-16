@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+message ImageRequest{
+}
+
+message ImageReply{
+	string image = 1;
+	string date = 2;
+}
+
+
+// responce server
+service MainServer{
+	rpc getImage (ImageRequest) returns (stream ImageReply) {}
+}

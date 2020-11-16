@@ -1,0 +1,27 @@
+#FROM l4t:latest
+FROM latonaio/l4t-ds-opencv-7.2-jetpack-4.3:latest
+
+# Definition of a Device & Service
+ENV POSITION=Runtime \
+    SERVICE=stream-nw-video-by-grpc \
+    AION_HOME=/var/lib/aion
+
+RUN mkdir ${AION_HOME}
+WORKDIR ${AION_HOME}
+# Setup Directoties
+RUN mkdir -p \
+    $POSITION/$SERVICE
+WORKDIR ${AION_HOME}/$POSITION/$SERVICE/
+
+ADD requirements.txt .
+ADD pylon_5.2.0.13457-deb0_arm64.deb .
+
+RUN dpkg -i pylon_5.2.0.13457-deb0_arm64.deb && \
+    apt-get update && \
+    apt-get -y install swig && \
+    git clone https://github.com/basler/pypylon.git && \
+    cd pypylon && \
+    pip3 install . && \
+    cd ../ && \
+    pip3 install -r requirements.txt
+

@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: stream-nw-video-by-grpc
+spec:
+  hostNetwork: False
+  containers:
+  - name: stream-nw-video-by-grpc
+    image: stream-nw-video-by-grpc:latest
+    imagePullPolicy: IfNotPresent
+    ports:
+    - containerPort: 80
+    env:
+    - name: DISPLAY
+      value: ":1"
+    volumeMounts:
+    - mountPath: /tmp/.X11-unix/
+      name: x11
+  volumes:
+  - name: x11
+    hostPath:
+      path: /tmp/.X11-unix/ 

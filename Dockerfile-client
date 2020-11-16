@@ -1,0 +1,13 @@
+FROM stream-nw-video-by-grpc-base:latest
+
+# Definition of a Device & Service
+ENV POSITION=Runtime \
+    SERVICE=stream-nw-video-by-grpc \
+    AION_HOME=/var/lib/aion
+
+WORKDIR ${AION_HOME}/$POSITION/$SERVICE/
+ADD . .
+
+
+CMD ["python3", "-u", "client.py"]
+#CMD ["/bin/sh", "-c", "while :; do sleep 10; done"]
