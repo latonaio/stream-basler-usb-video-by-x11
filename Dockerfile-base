@@ -1,5 +1,5 @@
 #FROM l4t:latest
-FROM latonaio/l4t-ds-opencv-7.2-jetpack-4.3:latest
+FROM latonaio/l4t-ds-opencv-7.2:latest
 
 # Definition of a Device & Service
 ENV POSITION=Runtime \
