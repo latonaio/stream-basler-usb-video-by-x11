@@ -1,4 +1,4 @@
-# サービス概要
+## サービス概要
 basler製のSDKであるpypylonをラップした、basler製品のカメラを使用するためのマイクロサービスです。
 
 接続されたbasler製品のカメラを認識し、画像を撮影します。
@@ -6,25 +6,32 @@ basler製のSDKであるpypylonをラップした、basler製品のカメラを�
 撮影データはX11 Bitmap及びX11 Pixmap形式に変換されたあと、jpgに変換され、メモリ内に保存されます。
 他マイクロサービスへの提供時には、メモリ内の画像データをbase64に変換して送信します。
 
+### 動作環境
+aion-coreのプラットフォーム上での動作を前提としています。 使用する際は、事前に下記の通りAIONの動作環境を用意してください。
+- OS: Linux
+
+- CPU: AMD64, ARM64
+
+- AION-CORE
 ### 対応機種：
 - acA1920-40gc
 - acA1920-40uc
 - acA1300-30gm
 - acA2040-55uc
 
-# 使用方法
+### 使用方法
 
-①ベースイメージをビルドします
+1. ベースイメージをビルドします
 ```
 bash docker-build-base.sh
 ```
 
-②イメージをビルドする
+2. イメージをビルドする
 ```
 bash docker-build.sh
 ```
 
-③project.ymlのmicroservicesに以下を追加
+3. project.ymlのmicroservicesに以下を追加
 ```
   stream-basler-usb-video-by-x11:
     startup: yes
@@ -42,15 +49,15 @@ bash docker-build.sh
       - /tmp/.X11-unix/:/tmp/.X11-unix/
 ```
 
-④ターミナルを開き、以下のコマンドを実行
+4. ターミナルを開き、以下のコマンドを実行
 ```
 export DISPLAY=:1
 xhost +
 ```
 
-⑤aion-coreを起動します
+5. aion-coreを起動します
 
-⑥映像が出力される
+6. 映像が出力される
 
 # grpcサーバー
 
