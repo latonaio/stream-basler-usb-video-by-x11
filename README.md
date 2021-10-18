@@ -1,40 +1,38 @@
 # stream-basler-usb-video-by-x11
-## 概要
-stream-basler-usb-video-by-x11は、basler製のSDKであるpypylonをラップした、basler製品のカメラを使用するためのマイクロサービスです。   
-接続されたbasler製品のカメラを認識し、画像を撮影します。   
-撮影データはX11 Bitmap及びX11 Pixmap形式に変換されたあと、jpgに変換され、メモリ内に保存されます。
-他マイクロサービスへの提供時には、メモリ内の画像データをbase64に変換して送信します。
+stream-basler-usb-video-by-x11は、basler製のSDKであるpypylonをラップした、主にエッジコンピューティング環境においてbasler製品のカメラを使用するためのマイクロサービスです。  
+stream-basler-usb-video-by-x11は、接続されたbasler製品のカメラを認識し、画像を撮影します。  
+撮影データはX11 Bitmap及びX11 Pixmap形式に変換されたあと、jpgに変換され、メモリ内に保存されます。  
+他マイクロサービスへの提供時には、メモリ内の画像データをbase64に変換して送信します。  
 
-## 動作環境
-stream-basler-usb-video-by-x11は、aion-coreのプラットフォーム上での動作を前提としています。   
-使用する際は、事前に下記の通りAIONの動作環境を用意してください。   
-* ARM CPU搭載のデバイス(NVIDIA Jetson シリーズ等)   
-* OS: Linux Ubuntu OS   
-* CPU: ARM64   
-* Kubernetes   
-* [AION](https://github.com/latonaio/aion-core)のリソース    
+# 動作環境
+stream-basler-usb-video-by-x11は、aion-coreのプラットフォーム上での動作を前提としています。  
+使用する際は、事前に下記の通りAIONの動作環境を用意してください。  
 
-### basler製品のカメラ対応機種：
-- acA1920-40gc
-- acA1920-40uc
-- acA1300-30gm
-- acA2040-55uc
+OS: Linux OS  
+CPU: ARM/AMD/Intel  
+Kubernetes  
+AIONのリソース  
 
-## セットアップ
+# basler製品のカメラ対応機種
 
-1. ベースイメージをビルドします
+・acA1920-40gc  
+・acA1920-40uc  
+・acA1300-30gm  
+・acA2040-55uc  
+
+# 使用方法
+
+①ベースイメージをビルドします
 ```
 bash docker-build-base.sh
 ```
 
-2. イメージをビルドする
+②イメージをビルドします
 ```
 bash docker-build.sh
 ```
 
-## 起動方法
-### デプロイ on AION
-project.ymlのmicroservicesに、以下のように記載してください。
+③project.ymlのmicroservicesに以下を追加します
 ```
   stream-basler-usb-video-by-x11:
     startup: yes
@@ -52,18 +50,17 @@ project.ymlのmicroservicesに、以下のように記載してください。
       - /tmp/.X11-unix/:/tmp/.X11-unix/
 ```
 
-### デプロイ方法
-1. ターミナルを開き、以下のコマンドを実行してください。
+④ターミナルを開き、以下のコマンドを実行します
 ```
-$ export DISPLAY=:1
-$ xhost +
+export DISPLAY=:1
+xhost +
 ```
 
-2. aion-coreを起動します。
+⑤aion-coreを起動します
 
-3. 映像が出力されます。
+⑥映像が出力されます
 
-## grpcサーバー
+# grpcサーバー
 
 ### サービス定義
 ```
